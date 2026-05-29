@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import { influences } from '../../data/site';
+---
+<Base title="influences / khodges42">
+  <section class="pane" data-label="/influences">
+    <h1 class="mono-title">annotated bookshelf / signal sources</h1>
+    <p class="subtle">Not endorsements. Not a canon. Just some people, books, scenes, and ideas that shaped how I think about technology, culture, systems, art, and human beings.</p>
+    <div class="list">
+      {influences.map(([name, works, why]) => <article class="item">
+        <h2>{name}</h2>
+        <div class="meta">{works}</div>
+        <p>{why}</p>
+      </article>)}
+    </div>
+  </section>
+</Base>

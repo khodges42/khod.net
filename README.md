@@ -1,6 +1,6 @@
-# khodges42 / khod.net
+# khod.net v5
 
-Static Astro site for khod.net: pirate BBS x keygen rave x impressive hacker portfolio.
+Astro static site. Built for Cloudflare Pages + GitHub deploy.
 
 ## Run locally
 
@@ -9,41 +9,46 @@ npm install
 npm run dev
 ```
 
-## Deploy to Cloudflare Pages
+## Cloudflare Pages
 
-Build command:
+- Framework preset: Astro
+- Build command: `npm run build`
+- Build output directory: `dist`
 
-```bash
-npm run build
+## Editing background text
+
+Change the parallax scrolling text in:
+
+```txt
+src/data/scrollingCode.ts
 ```
 
-Output directory:
-
-```bash
-dist
-```
-
-## Blog
+## Blog posts
 
 Add markdown files under:
 
-```text
+```txt
 src/content/blog/<category>/<slug>.md
 ```
 
-Each post supports frontmatter:
+Frontmatter example:
 
 ```yaml
 ---
-title: "Post title"
-description: "Short summary"
-published: 2026-05-27
+title: "Post Title"
+description: "Short description"
+pubDate: 2026-05-27
 category: tech
-tags: [lisp, systems, weird-computing]
+tags: [systems, lisp]
 draft: false
 ---
 ```
 
-## Recruiter mode
+Use `pubDate`, not `published`.
 
-The toggle in the header changes tone/presentation with CSS and localStorage. Same data, cleaner wrapper.
+## v8 visual notes
+
+- Palette is restricted to `#211e20`, `#555568`, `#a0a08b`, `#e9efec`.
+- Floating background code is in `src/data/scrollingCode.ts`.
+- Parallax positioning is in `src/components/Background.astro`.
+- Recruiter mode disables the background layers and uses a clean dossier/newspaper treatment.

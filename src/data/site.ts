@@ -1,0 +1,53 @@
+export const site = {
+  name: 'λ khodges42',
+  tagline: 'systems / archives / notes / machines',
+  summary: 'Distributed systems engineer. Builder of strange loops and strange machines. Interested in infrastructure, cryptography, simulation, free software, Lisp, digital folklore, and systems that survive contact with reality.',
+  links: [
+    { label: 'github', href: 'https://github.com/khodges42' },
+    { label: 'linkedin', href: 'https://www.linkedin.com/' },
+    { label: 'youtube', href: 'https://youtube.com/@segfault-engineering' },
+    { label: 'soundcloud', href: 'https://soundcloud.com/casualfri' },
+  ],
+};
+
+export const beliefs = [
+  'Computers should still feel magical.',
+  'Curiosity matters more than optimization.',
+  'Hype scales faster than trust.',
+  'Every abstraction leaks eventually.',
+  'Build tools that increase agency.',
+  'People deserve to understand the systems shaping their lives.',
+  'The internet should help people find themselves — and each other.',
+  'Build brilliant things. Keep them human.',
+];
+
+export const influences = [
+  ['Richard Stallman', 'GNU Manifesto / Free Software, Free Society', 'The idea that users should understand and control their machines permanently changed how I think about software.'],
+  ['Steve Wozniak', 'iWoz', 'Playful engineering before everything became productized. Technical joy, curiosity, and weird machines built because they were fun.'],
+  ['Douglas Hofstadter', 'Gödel, Escher, Bach / I Am a Strange Loop', 'Recursion, consciousness, symbolism, self-reference. Computers as philosophy, not just utility.'],
+  ['Kurt Gödel', 'Incompleteness theorems', 'A permanent wound in the fantasy of perfect systems. Every abstraction leaks eventually.'],
+  ['Claude Shannon', 'A Mathematical Theory of Communication', 'Information theory feels almost mystical if you stare at it long enough.'],
+  ['John McCarthy', 'Lisp papers', 'Symbolic systems, recursion, metaprogramming, computation as language and thought.'],
+  ['Gerald Sussman', 'SICP', 'Less a programming book than an initiation into a way of thinking.'],
+  ['Marshall McLuhan', 'Understanding Media / The Medium is the Massage', 'Tools reshape consciousness and social structure before anyone notices.'],
+  ['Peter Kropotkin', 'Mutual Aid / The Conquest of Bread', 'The best communities often operate more like decentralized care networks than markets.'],
+  ['Emma Goldman', 'Anarchism and Other Essays', 'Politics without humanity, joy, culture, or freedom becomes spiritually dead.'],
+  ['Mikhail Bakunin', 'God and the State', 'Suspicion of concentrated power remains useful around opaque technical systems.'],
+  ['Max Stirner', 'The Ego and Its Own', 'An antidote against making abstractions, institutions, or identities sacred.'],
+  ['Robert Anton Wilson', 'Prometheus Rising / Cosmic Trigger / Illuminatus!', 'Reality tunnels, mutable belief systems, and keeping a sense of humor around serious weirdness.'],
+  ['Grant Morrison', 'The Invisibles / Supergods', 'Fiction, symbols, and imagination as forces that reshape the world.'],
+  ['Philip K. Dick', 'VALIS / Ubik / Do Androids Dream...', 'Paranoia, unstable realities, simulated identities, fragile humanity. Internet brain before internet brain.'],
+  ['William Gibson', 'Neuromancer', 'Cyberspace as mythology: dream-space, black market, liberation machine, and control system.'],
+  ['Neal Stephenson', 'Snow Crash / Cryptonomicon', 'Hacker culture, virtual worlds, cryptography, and techno-social systems as literary architecture.'],
+  ['Ursula K. Le Guin', 'The Dispossessed', 'Anarchism and society explored with rare humanity.'],
+  ['Aaron Swartz', 'Guerrilla Open Access Manifesto', 'Knowledge should belong to humanity, not only institutions powerful enough to gate it.'],
+  ['World/Inferno Friendship Society', 'music / community / chaos', 'Art as community, mutual aid, theatrical disorder, and beauty among outsiders.'],
+  ['Crass', 'punk as system critique', 'Punk as more than rebellion aesthetics: war, media, hierarchy, power.'],
+  ['Subhumans', 'The Day The Country Died', 'Angry, humanistic anarchist punk centered on empathy and questioning suffering.'],
+  ['Frankie Knuckles', 'house music foundations', 'Dance music as liberation, collective experience, and temporary autonomous zone.'],
+  ['Ron Hardy', 'raw experimentation', 'Unpredictable, risky, and genuinely new territory.'],
+  ['Goldie', 'jungle / machine soul', 'Jungle as cyberpunk made physical: fractured, urban, emotional, intense.'],
+  ['Aphex Twin', 'strange electronic systems', 'Technical, playful, emotional, human, deeply strange.'],
+  ['Mala', 'deep dubstep', 'Spacious, meditative, communal, and physical.'],
+  ['The Prodigy', 'rave crossing into punk', 'Electronic music with danger and attitude intact.'],
+];

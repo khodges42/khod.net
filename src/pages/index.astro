@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, beliefs } from '../data/site';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog')).filter(p => !p.data.draft).sort((a,b)=>b.data.pubDate.valueOf()-a.data.pubDate.valueOf()).slice(0,4);
+const machines = (await getCollection('machines')).filter(p => !p.data.draft).slice(0,3);
+const skull = String.raw`
+              (                                     defparameter
+             *me* '(:name k                        :home
+            "the web" :mood                        "curious" :likes
+           (lisp art systems                      tools))) (defun
+          hello (n) (if (zerop n) "hi" (concatenate 'string "hello " (
+         hello (1- n))))) (defun intro () (list :hello "I am K" :site
+        "welcome to my site" :note "I make strange tools" :loop (hello 3
+       ))) (defun say (x) (format t "~a~%" x) x) (defun walk (xs) (if (
+      endp xs) (intro) (progn (say (first xs)) (walk (rest xs))))) (defun
+      page () (walk '("hello" "I am K" "welcome" "look around"
+     "stay awhile")) (intro)) (defun again (n) (if (zerop n) (page) (progn
+     (say "still here") (again (1- n))))) (defun main () (say
+      "hello I am K") (say "welcome to my site") (say
+      "I like code that looks back") (again 5)) (main) (defparameter *me*
+       '(:name k :home "the web" :mood "curious" :likes (lisp art systems
+        tools))) (defun hello (n) (if (zerop n) "hi" (concatenate '
+          string "hello " (hello (1- n))))) (defun intro () (list
+            :hello "I am K" :site "welcome to my site" :note
+              "I make strange tools" :loop (hello 3))) (defun say
+                (x) (format t "~a~%" x) x) (defun walk (xs) (if
+                  (endp xs) (intro) (progn (say (first xs)) (
+                    walk (rest xs))))) (defun page () (walk
+                       '("hello" "I am K" "welcome"
+                          "look around" "stay awhile")
+                             ) (intro)) (defun
+
+`;
+---
+<Base title="λ khodges42">
+  <section class="grid">
+    <div class="pane" data-label="/transmission">
+      <div class="mark">λ khodges42</div>
+      <p class="subtle">{site.summary}</p>
+      <p class="meta">{site.tagline}</p>
+      <p>{site.links.map((l) => <a class="btn" href={l.href}>{l.label}</a>)}</p>
+    </div>
+    <div class="pane" data-label="/background-artifact">
+      <pre class="ascii">{skull}</pre>
+    </div>
+  </section>
+
+  <section class="grid" style="margin-top:1rem">
+    <div class="pane" data-label="/log/recent">
+      <h2 class="mono-title">recent textfiles</h2>
+      <div class="list">
+        {posts.map((post) => <article class="item">
+          <div class="meta">{post.data.pubDate.toISOString().slice(0,10)}</div>
+          <h3><a href={`/log/${post.id}`}>{post.data.title}</a></h3>
+          <p class="subtle">{post.data.description}</p>
+          <div class="tags">{post.data.tags.map(t => <span class="tag">{t}</span>)}</div>
+        </article>)}
+      </div>
+    </div>
+    <div class="pane" data-label="/ethics">
+      <h2 class="mono-title">operating notes</h2>
+      <ul class="beliefs">
+        {beliefs.map(b => <li>{b}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="pane" data-label="/machines" style="margin-top:1rem">
+    <h2 class="mono-title">things i've built</h2>
+    <div class="machine-grid">
+      {machines.map(m => <article class="item">
+        <h3><a href={`/machines/${m.id}`}>{m.data.title}</a></h3>
+        <p class="subtle">{m.data.description}</p>
+        <div class="tags">{m.data.tags.map(t => <span class="tag">{t}</span>)}</div>
+      </article>)}
+    </div>
+  </section>
+  <div class="footer-lambda">λ λ λ λ λ λ λ</div>
+</Base>

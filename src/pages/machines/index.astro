@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const machines = (await getCollection('machines')).filter(p => !p.data.draft);
+---
+<Base title="machines / khodges42">
+  <section class="pane" data-label="/machines">
+    <h1 class="mono-title">things i've built</h1>
+    <div class="machine-grid">
+      {machines.map(m => <article class="pane machine" data-label={m.data.status ?? 'artifact'}>
+        <h2><a href={`/machines/${m.id}`}>{m.data.title}</a></h2>
+        <p class="subtle">{m.data.description}</p>
+        <div>{m.data.tags.map(t => <span class="tag">{t}</span>)}</div>
+        <div class="links">{m.data.links.map(l => <a class="btn" href={l.href}>{l.label}</a>)}</div>
+      </article>)}
+    </div>
+  </section>
+</Base>

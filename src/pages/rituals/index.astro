@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const rituals = (await getCollection('rituals')).filter(p => !p.data.draft);
+---
+<Base title="rituals / khodges42">
+  <section class="pane" data-label="/rituals">
+    <h1 class="mono-title">rituals / symbolic systems</h1>
+    <p class="subtle">Essays that treat computation, language, ritual, and symbolic systems as related machines.</p>
+    <div class="list">
+      {rituals.map(r => <article class="item">
+        <div class="meta">{r.data.pubDate.toISOString().slice(0,10)}</div>
+        <h2><a href={`/rituals/${r.id}`}>{r.data.title}</a></h2>
+        <p class="subtle">{r.data.description}</p>
+        {r.data.tags.map(t => <span class="tag">{t}</span>)}
+      </article>)}
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,28 @@
+---
+const links = [
+  ['/', 'transmission'],
+  ['/log', 'log'],
+  ['/machines', 'machines'],
+  ['/rituals', 'rituals'],
+  ['/influences', 'influences'],
+];
+---
+<header class="topbar">
+  <a class="sigil" href="/">λ khodges42</a>
+  <nav>
+    {links.map(([href, label]) => <a href={href}>/{label}</a>)}
+    <button id="recruiterToggle" type="button">recruiter mode</button>
+  </nav>
+</header>
+<script is:inline>
+  const apply = () => {
+    const enabled = localStorage.getItem('recruiterMode') === 'true';
+    document.documentElement.classList.toggle('recruiter', enabled);
+  };
+  apply();
+  document.getElementById('recruiterToggle')?.addEventListener('click', () => {
+    const next = !(localStorage.getItem('recruiterMode') === 'true');
+    localStorage.setItem('recruiterMode', String(next));
+    apply();
+  });
+</script>

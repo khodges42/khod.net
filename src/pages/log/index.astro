@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog')).filter(p => !p.data.draft).sort((a,b)=>b.data.pubDate.valueOf()-a.data.pubDate.valueOf());
+---
+<Base title="log / khodges42">
+  <section class="pane" data-label="/log">
+    <h1 class="mono-title">textfiles / blog</h1>
+    <div class="list">
+      {posts.map(post => <article class="item">
+        <div class="meta">{post.data.pubDate.toISOString().slice(0,10)} / {post.data.category}</div>
+        <h2><a href={`/log/${post.id}`}>{post.data.title}</a></h2>
+        <p class="subtle">{post.data.description}</p>
+        {post.data.tags.map(t => <span class="tag">{t}</span>)}
+      </article>)}
+    </div>
+  </section>
+</Base>

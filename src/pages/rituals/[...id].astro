@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+export async function getStaticPaths(){
+  const rituals = await getCollection('rituals');
+  return rituals.map(ritual => ({ params: { id: ritual.id }, props: { ritual } }));
+}
+const { ritual } = Astro.props;
+const { Content } = await render(ritual);
+---
+<Base title={`${ritual.data.title} / rituals`}>
+  <article class="pane prose" data-label={`/rituals/${ritual.id}`}>
+    <p class="meta">{ritual.data.pubDate.toISOString().slice(0,10)}</p>
+    <h1>{ritual.data.title}</h1>
+    <Content />
+  </article>
+</Base>

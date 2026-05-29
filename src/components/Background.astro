@@ -1,0 +1,165 @@
+---
+---
+<div class="texture" aria-hidden="true"></div>
+<div class="raster-glow" aria-hidden="true"></div>
+<canvas class="life-field" id="life-field" aria-hidden="true"></canvas>
+<script is:inline>
+  (() => {
+    const canvas = document.getElementById('life-field');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: true });
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let cell = 8;
+    let cols = 0;
+    let rows = 0;
+    let grid = [];
+    let next = [];
+    let stableTicks = 0;
+    let lastHash = '';
+    let lastStep = 0;
+
+    function put(x, y, pattern) {
+      for (let yy = 0; yy < pattern.length; yy++) {
+        for (let xx = 0; xx < pattern[yy].length; xx++) {
+          const gx = x + xx;
+          const gy = y + yy;
+          if (gx >= 0 && gx < cols && gy >= 0 && gy < rows) {
+            grid[gy * cols + gx] = pattern[yy][xx];
+          }
+        }
+      }
+    }
+
+    function seed() {
+      grid = new Uint8Array(cols * rows);
+      next = new Uint8Array(cols * rows);
+
+      // Sparse random seed: enough life to move, not a full noise wall.
+      const density = window.innerWidth < 800 ? 0.085 : 0.065;
+      for (let i = 0; i < grid.length; i++) {
+        grid[i] = Math.random() < density ? 1 : 0;
+      }
+
+      // A few classic-ish patterns so the field feels intentional.
+      const glider = [[0,1,0],[0,0,1],[1,1,1]];
+      const blinker = [[1,1,1]];
+      const block = [[1,1],[1,1]];
+      const beacon = [[1,1,0,0],[1,1,0,0],[0,0,1,1],[0,0,1,1]];
+      const patterns = [glider, blinker, block, beacon];
+      const stampCount = Math.max(10, Math.floor((cols * rows) / 900));
+      for (let i = 0; i < stampCount; i++) {
+        const pat = patterns[i % patterns.length];
+        const x = Math.floor(Math.random() * Math.max(1, cols - 8));
+        const y = Math.floor(Math.random() * Math.max(1, rows - 8));
+        put(x, y, pat);
+      }
+
+      stableTicks = 0;
+      lastHash = '';
+    }
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cell = window.innerWidth < 800 ? 7 : 8;
+      cols = Math.ceil(window.innerWidth / cell);
+      rows = Math.ceil(window.innerHeight / cell);
+      seed();
+    }
+
+    function step() {
+      let live = 0;
+      let changed = 0;
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          let n = 0;
+          for (let dy = -1; dy <= 1; dy++) {
+            for (let dx = -1; dx <= 1; dx++) {
+              if (dx === 0 && dy === 0) continue;
+              const xx = x + dx;
+              const yy = y + dy;
+              if (xx >= 0 && xx < cols && yy >= 0 && yy < rows) n += grid[yy * cols + xx];
+            }
+          }
+          const idx = y * cols + x;
+          const alive = grid[idx] === 1;
+          const val = alive ? (n === 2 || n === 3 ? 1 : 0) : (n === 3 ? 1 : 0);
+          next[idx] = val;
+          live += val;
+          if (val !== grid[idx]) changed++;
+        }
+      }
+      const tmp = grid; grid = next; next = tmp;
+
+      // Reset when dead, too stable, or settled into a tiny oscillator soup.
+      let hash = String(live) + ':' + String(changed) + ':';
+      for (let i = 0; i < grid.length; i += 23) hash += grid[i];
+      if (hash === lastHash || changed < Math.max(8, grid.length * 0.0025) || live < 12) stableTicks++;
+      else stableTicks = 0;
+      lastHash = hash;
+      if (stableTicks > 26) seed();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      // Soft dead-grid raster underneath active cells.
+      ctx.strokeStyle = 'rgba(160, 160, 139, 0.020)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < cols; x += 6) {
+        ctx.beginPath(); ctx.moveTo(x * cell + .5, 0); ctx.lineTo(x * cell + .5, window.innerHeight); ctx.stroke();
+      }
+      for (let y = 0; y < rows; y += 6) {
+        ctx.beginPath(); ctx.moveTo(0, y * cell + .5); ctx.lineTo(window.innerWidth, y * cell + .5); ctx.stroke();
+      }
+
+      ctx.fillStyle = 'rgba(233, 239, 236, 0.145)';
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          if (!grid[y * cols + x]) continue;
+          ctx.fillRect(x * cell + 1, y * cell + 1, Math.max(1, cell - 3), Math.max(1, cell - 3));
+        }
+      }
+    }
+
+    function loop(ts) {
+      const interval = prefersReduced ? 1000 : 72;
+      if (ts - lastStep > interval) {
+        step();
+        lastStep = ts;
+      }
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+    requestAnimationFrame(loop);
+  })();
+
+  (() => {
+    const root = document.documentElement;
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+    const setTarget = (x, y) => {
+      tx = (x / Math.max(window.innerWidth, 1) - 0.5) * 2;
+      ty = (y / Math.max(window.innerHeight, 1) - 0.5) * 2;
+    };
+    window.addEventListener('pointermove', (event) => setTarget(event.clientX, event.clientY), { passive: true });
+    window.addEventListener('scroll', () => {
+      root.style.setProperty('--scroll-y', String(window.scrollY || 0));
+    }, { passive: true });
+    const tick = () => {
+      cx += (tx - cx) * 0.075;
+      cy += (ty - cy) * 0.075;
+      root.style.setProperty('--mouse-x', cx.toFixed(4));
+      root.style.setProperty('--mouse-y', cy.toFixed(4));
+      requestAnimationFrame(tick);
+    };
+    tick();
+  })();
+</script>
