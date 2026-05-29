@@ -12,9 +12,9 @@ For HOPE 2022, Autumn and I flew to New York City.
 
 We landed after a long day of airports and bad coffee, found some of the best Chinese food I’ve had outside the West Coast, and then walked across Brooklyn to visit a synthesizer shop that turned out to be closed.
 
-Back at the conference, DJ Spock (of Chaos Computer Club fame) was waiting for us while we got set up. His text messages were intensely German: polite, efficient, a subtle humor most Americans would miss. His patience that day is something I'll always remember. Later he would offer to teach me how to use his CDJ-3000s, an offer I regret refusing to this very day.
+Back at the conference, DJ Spock (of Chaos Computer Club fame) was waiting for us while we were haphazardly exploring Brooklyn. His text messages were intensely German: polite, efficient, a subtle humor most Americans would miss. I don't remember what my excuse was, but I wasn't about to tell a CCC legend that I was busy getting impromptu ink. His patience that day is something I'll always remember. Later he would offer to teach me how to use his CDJ-3000s, an offer I regret refusing to this very day.
 
-Somewhere during that trip, we walked past a tattoo shop.
+After finding the synth shop closed, we walked past a tattoo shop. From the street we could hear the legendary NY Hardcore band Gorilla Biscuits' "Start Today" playing inside. Their discography is already tattooed on my brain, it was fate.
 
 I don’t remember discussing it much. Autumn has always been down for spontaneous tattoos. Before long we were sitting in chairs getting matching lambdas inked onto our ankles.
 
