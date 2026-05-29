@@ -12,7 +12,7 @@ For HOPE 2022, Autumn and I flew to New York City.
 
 We landed after a long day of airports and bad coffee, found some of the best Chinese food I’ve had outside the West Coast, and then walked across Brooklyn to visit a synthesizer shop that turned out to be closed.
 
-Back at the conference, DJ Spock was waiting for us while we got set up. His text messages were intensely German: polite, efficient, completely immune to jokes. Or maybe he understood them perfectly and simply processed them in a German way.
+Back at the conference, DJ Spock (of Chaos Computer Club fame) was waiting for us while we got set up. His text messages were intensely German: polite, efficient, a subtle humor most Americans would miss. His patience that day is something I'll always remember. Later he would offer to teach me how to use his CDJ-3000s, an offer I regret refusing to this very day.
 
 Somewhere during that trip, we walked past a tattoo shop.
 
